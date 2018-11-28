@@ -15,7 +15,41 @@ var topics = {
   }
 
 socket.on(topics.statusResponse, function (msg) {
-    $('#socketTest').append($('<li>').text(msg));
+    const parsedMessage = parseArduStatus(msg)
+    console.log(parsedMessage)
 
-    
+    document.getElementById('lightsOnTime').value = parsedMessage.lightsOnTime;
+    document.getElementById('lightsOffTime').value = parsedMessage.lightsOffTime;
+    document.getElementById('ventilationOnTime').value = parsedMessage.ventilationOnTime;
+    document.getElementById('ventilationOffTime').value = parsedMessage.ventilationOffTime;
+	changeBarValue(document.getElementById('tempBar'),parsedMessage.temperature,'°C'); //Panel Temperatura
+	changeBarValue(document.getElementById('soilHumBar'),parsedMessage.soilHumidity,'%'); //Panel Humedad Suelo
+	//document.getElementById('soilHumTextArea').value = parsedMessage.soilHumidity;
+	changeBarValue(document.getElementById('humBar'),parsedMessage.humidity,'%'); // Panel Humedad Aire
+	//document.getElementById('humTextArea').value = parsedMessage.humidity;
 });
+
+ parseArduStatus = (status) => {
+    var hour = (new Date()).getHours();
+    var lightOn = false;
+    if (hour >= status.configuration.lightsOnTime && hour < status.configuration.lightsOffTime) {
+      lightOn = true;
+    }
+    var ventilationOn = false;
+    if (hour >= status.configuration.ventilationOnTime && hour < status.configuration.ventilationOffTime) {
+      ventilationOn = true;
+    }
+  
+    return {
+      light: lightOn,
+      ventilation: ventilationOn,
+      temperature: status.status.temperature,
+      humidity: status.status.humidity,
+      soilHumidity: status.status.soilHumidity,
+      lightsOnTime: status.configuration.lightsOnTime,
+      lightsOffTime: status.configuration.lightsOffTime,
+      ventilationOnTime: status.configuration.ventilationOnTime,
+      ventilationOffTime: status.configuration.ventilationOffTime
+    }
+  }
+  
