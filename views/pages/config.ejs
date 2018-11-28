@@ -12,55 +12,53 @@
 	</header>
 
 	<main>
-		<div id="configForm" class="form-group" method="post"> <!-- should be form -->
+		<div id="configForm" class="form-group" method="post">
+			<!-- should be form -->
 			<div class="col-sm-6">
-				<div class="jumbotron"  style="width: 160%;">
+				<div class="jumbotron" style="width: 13	0%;">
 					<!-- Fondo gris -->
-
+					<label for="moisture">Humedad en tierra deseada:</label>
 					<input id="moisture" type="text" class="form-control" name="moisture" onkeypress="return isNumber(event)"
-					 placeholder="Nivel de humedad del suelo">
+					 placeholder="Nivel de humedad del suelo (porcentaje)">
 
 					<div>
 						<!-- Luz -->
-						<h5>Desde <input id="lightFrom" type="text" class="form-control input-small">
-							Hasta <input id="lightTo" type="text" class="form-control input-small">
-							<span class="glyphicon glyphicon-flash"></span>
-						</h5>
+
+						<h5><label for="lightFrom"><span class="glyphicon glyphicon-flash"></span> Iluminación desde:</label></h5>
+						<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Disabled tooltip">
+							<h5> <input id="lightFrom" type="text" class="form-control input-small"></h5>
+
+
+							<h5><label for="lightTo"><span class="glyphicon glyphicon-flash"></span> Iluminación hasta:</label></h5>
+							<h5><input id="lightTo" type="text" class="form-control input-small"></h5>
 					</div>
 
 					<div>
 						<!-- Ventilacion -->
-						<h5>Desde <input id="fanFrom" type="text" class="form-control input-small">
-							Hasta <input id="fanTo" type="text" class="form-control input-small">
-							<span class="glyphicon glyphicon-leaf"></span>
-						</h5>
+						<h5><label for="fanFrom"><span class="glyphicon glyphicon-leaf"></span> Ventilacion desde:</label></h5>
+						<h5><input id="fanFrom" type="text" class="form-control input-small"></h5>
+
+						<h5><label for="fanTo"><span class="glyphicon glyphicon-leaf"></span> Ventilacion hasta:</label></h5>
+						<h5><input id="fanTo" type="text" class="form-control input-small"></h5>
 					</div>
-
+					<label for="vFrecuency">Intervalo entre ventilación:</label>
 					<input id="vFrecuency" type="text" class="form-control" name="vFrecuency" onkeypress="return isNumber(event)"
-					 placeholder="Frencuencia de ventilacion">
+					 placeholder="Frencuencia de ventilacion (segundos)">
 
+					<label for="ventilation">Duración de la ventilación:</label>
 					<input id="ventilation" type="text" class="form-control" name="ventilation" onkeypress="return isNumber(event)"
-					 placeholder="Tiempo de ventilacion">
+					 placeholder="Tiempo de ventilacion (segundos)">
 
 
 					<button type="submit" class="btn btn-light" id="submitButton" onclick="sendData()">Enviar</button>
-
+					<div id = "alertSendMessage" style="display:none;" class="alert alert-success alert-dismissible fade in">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<strong>¡El Mensaje ha sido enviado!</strong> 
+					  </div>
 				</div>
 			</div>
+		
 		</div>
-
-
-		<!--
-										<div class="row">
-											<div class='col-sm-6'>
-													<div class="input-group bootstrap-timepicker timepicker">
-														<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-														<input id="timepicker1" type="text" class="form-control input-small">														
-													</div>
-											</div>
-									</div> -->
-
-
 
 	</main>
 
@@ -92,6 +90,7 @@
 			// Do whatever with response
 			console.log("response", response)
 		}
+		$('#alertSendMessage').show();
 
 	}
 
@@ -108,25 +107,25 @@
 	$('#lightFrom').timepicker({
 		showInputs: false,
 		use24hours: true,
-		showMeridian: false     
+		showMeridian: false,
 	}).val("12:00");
 
 	$('#lightTo').timepicker({
 		showInputs: false,
 		use24hours: true,
-		showMeridian: false     
+		showMeridian: false
 	}).val("12:00");
 
 	$('#fanFrom').timepicker({
 		showInputs: false,
 		use24hours: true,
-		showMeridian: false     
+		showMeridian: false
 	}).val("12:00");
 
 	$('#fanTo').timepicker({
 		showInputs: false,
 		use24hours: true,
-		showMeridian: false     	
+		showMeridian: false
 	}).val("12:00");
 </script>
 
