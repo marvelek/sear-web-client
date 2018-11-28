@@ -24,9 +24,7 @@ socket.on(topics.statusResponse, function (msg) {
     document.getElementById('ventilationOffTime').value = parsedMessage.ventilationOffTime;
 	changeBarValue(document.getElementById('tempBar'),parsedMessage.temperature,'°C'); //Panel Temperatura
 	changeBarValue(document.getElementById('soilHumBar'),parsedMessage.soilHumidity,'%'); //Panel Humedad Suelo
-	document.getElementById('soilHumBar').value = parsedMessage.soilHumidity;
 	changeBarValue(document.getElementById('humBar'),parsedMessage.humidity,'%'); // Panel Humedad Aire
-    document.getElementById('humBar').value = parsedMessage.humidity;
     
     showStatus('light',parsedMessage.light); 
     showStatus('ventilation',parsedMessage.ventilation);//Panel Ventilacion
@@ -34,7 +32,6 @@ socket.on(topics.statusResponse, function (msg) {
 });
 
  parseArduStatus = (status) => {
-     console.log(status)
     var hour = (new Date()).getHours();
     var lightOn = false;
     if (hour >= status.configuration.lightsOnTime && hour < status.configuration.lightsOffTime) {
